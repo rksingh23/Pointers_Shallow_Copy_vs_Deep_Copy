@@ -2,65 +2,62 @@
 #include <iostream>
 #include <bits/stdc++.h>
 
-
-std::vector<int> Solution::Prime_SieveOfEratosthenes(int &num) 
-{ 
-  std::vector<int> result;
-  std::vector<bool> visited(num+1,false); //Creates a boolean array visited, having size (o to n), all initialized as false.
-
-  if (num<=0)
-  {
-      return {-1};
-  }
-  else
-  {
-  for(int i=2;i<=num;i++)
-  {
-    if(!visited[i]) // if any number is not visited, it is a prime number
-    {
-      result.push_back(i); //add them to the result vector
-      for(int j=i+i; j<=num; j+=i)
-      {
-        visited[j]=true; //all the multiples of that number are non prime, hence invalidate them.
-      }
-    }
-  }
-  return result;
-  }
-}
-
-
-
-
-std::vector<int> Solution::FindPrimeRecursive(int &num)
+Student_shallow::Student_shallow() 
 {
-  std::vector<int> result;
-  if (num<=0)
-  {
-      return {-1};
-  }
-  else
-  {
-      for(int i=2;i<=num;i++)
-      {
-        Solution::globalChk = i/2;
-        if(isPrime(i))
-            result.push_back(i);
-      }
-  }
-  return result;
+        Student_shallow::id=new int;
+        //pointers take only 0 as an integer input, rest all intergers initialized to a pointer throw error
+        //& is address of, * is dereferncing i.e value of
+        id=0;
+        //cout<<id<<"     "<<&id<<std::endl;
+}
+
+Student_shallow::Student_shallow(int& a) 
+{
+        //Student_shallow::id=new int;
+        id=&a;
+        //cout<<*id<<"     "<<&id<<std::endl;
+}
+
+Student_shallow::~Student_shallow() 
+{
+     std::cout<<"Delete Student_shallow! "<<std::endl;
+     Student_shallow::id=nullptr;
+     delete Student_shallow::id;
 }
 
 
-bool Solution::isPrime(int &num){
-  if(globalChk==1){
-    return 1;
-  }else{
-    if(num%globalChk==0) {
-      return 0;
-    } else {
-      globalChk = globalChk-1;
-      isPrime(num);
-    }
-  }
+Student_shallow::Student_shallow(const Student_shallow &p2)
+{
+    id=p2.id;
+}
+
+Student_deep::Student_deep()
+{
+    Student_deep::id=new int;
+    id=0;
+}
+
+Student_deep::Student_deep(int& a)
+{
+    Student_deep::id=new int;
+     id=&a;
+}
+
+Student_deep::Student_deep(const Student_deep &p2)
+{
+    id = new int(*p2.id);
+}
+
+Student_deep& Student_deep::operator=(const Student_deep &p3)
+{
+    //static Student_deep f1;
+    id = new int(*p3.id);
+     return *this;
+}
+
+Student_deep::~Student_deep()
+{
+     std::cout<<"Delete Student_deep! "<<std::endl;
+     Student_deep::id=nullptr;
+     delete Student_deep::id;
 }

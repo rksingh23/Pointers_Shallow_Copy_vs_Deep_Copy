@@ -4,15 +4,27 @@
 #include <string>
 #include <vector>
 
-class Solution {
+class Student_shallow
+{
 public:
-  
-  std::vector<int> FindPrimeRecursive(int &num);
-  std::vector<int> Prime_SieveOfEratosthenes(int &num); 
-  int globalChk;  
-  bool isPrime(int &num); 
-
-//private:
+    int* id;
+    Student_shallow();
+    Student_shallow(int &a);
+    ~Student_shallow();
+    Student_shallow(const Student_shallow &p2);
 };
+
+
+class Student_deep
+{
+public:
+    int* id;
+    Student_deep();
+    Student_deep(int &a);
+    ~Student_deep();
+    Student_deep(const Student_deep &p2);
+    Student_deep& operator=(const Student_deep &p3);
+};
+
 
 #endif

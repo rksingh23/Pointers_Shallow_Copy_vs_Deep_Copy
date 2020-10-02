@@ -3,95 +3,98 @@
 #include <vector>
 
 
-
-TEST(FindPrimeTest, HandlesPositiveNumberSeive) {
-  Solution solution;
-
-  int num=5;
-  std::vector<int> vect1{2,3,5};
-  std::vector<int> cmp;
-  for (auto n:solution.Prime_SieveOfEratosthenes(num)){
-    cmp.push_back (n);
-  }
-  ASSERT_EQ(cmp.size(), vect1.size()) << "Vectors x and y are of unequal length";
-  for (unsigned int i = 0; i < vect1.size(); ++i){
-    EXPECT_EQ(cmp[i],vect1[i]);
-  } 
+TEST(Q4_Student, HandlesDefaultConstructorShallow) {
+  Student_shallow s;
+  int* g=0;
+  EXPECT_EQ (s.id,g);
 }
 
-TEST(FindPrimeTest, HandlesPositiveNumberRecursive) {
-  Solution solution;
+TEST(Q4_Student, HandlesParametrizedConstructorShallow) {
+  int n=2;
+  int* g=&n;
+  Student_shallow s(*g);
+  EXPECT_EQ (*s.id,*g);
+}
 
-  int num=5;
-  std::vector<int> vect1{2,3,5};
-  std::vector<int> cmp;
-  for (auto n:solution.FindPrimeRecursive(num)){
-    cmp.push_back (n);
-  }
-  ASSERT_EQ(cmp.size(), vect1.size()) << "Vectors x and y are of unequal length";
-  for (unsigned int i = 0; i < vect1.size(); ++i){
-    EXPECT_EQ(cmp[i],vect1[i]);
-  } 
+TEST(Q4_Student, HandlesCopyConstructorShallow) {
+  int n=2;
+  int* g=&n;
+  Student_shallow s(*g);
+  Student_shallow d=s;
+  EXPECT_EQ (*s.id,*g);
+  EXPECT_EQ (*d.id,*g);
+}
+
+TEST(Q4_Student, HandlesDefaultConstructorDeep) {
+  Student_deep s;
+  int* g=0;
+  EXPECT_EQ (s.id,g);
+}
+
+TEST(Q4_Student, HandlesParametrizedConstructorDeep) {
+  int n=2;
+  int* g=&n;
+  Student_deep s(*g);
+  EXPECT_EQ (*s.id,*g);
+}
+
+TEST(Q4_Student, HandlesCopyConstructorDeep) {
+  int n=2;
+  int* g=&n;
+  Student_deep s(*g);
+  Student_deep d=s;
+  EXPECT_EQ (*s.id,*g);
+  EXPECT_EQ (*d.id,*g);
+}
+
+TEST(Q4_Student, HandlesCopyOperator) {
+  int n=2;
+  int* g=&n;
+  Student_deep s(*g);
+  Student_deep d;
+  d=s;
+  EXPECT_EQ (*s.id,*g);
+  EXPECT_EQ (*d.id,*g);
+}
+
+TEST(Q4_Student, HandlesShallowCopy) {
+  int n=2;
+  int* g=&n;
+  Student_shallow s(*g);
+  Student_shallow d=s;
+  Student_shallow e=d;
+  *s.id=5;
+  EXPECT_EQ (*s.id,*s.id);
+  EXPECT_EQ (*d.id,*s.id);
+  EXPECT_EQ (*e.id,*s.id);
+  *d.id=5;
+  EXPECT_EQ (*s.id,*s.id);
+  EXPECT_EQ (*d.id,*d.id);
+  EXPECT_EQ (*e.id,*d.id);
+  *e.id=5;
+  EXPECT_EQ (*s.id,*s.id);
+  EXPECT_EQ (*d.id,*d.id);
+  EXPECT_EQ (*e.id,*e.id);
 }
 
 
-TEST(FindPrimeTest, HandlesNegativeNumberSeive) {
-  Solution solution;
 
-  int num=-1;
-  std::vector<int> vect1{-1};
-  std::vector<int> cmp;
-  for (auto n:solution.Prime_SieveOfEratosthenes(num)){
-    cmp.push_back (n);
-  }
-  ASSERT_EQ(cmp.size(), vect1.size()) << "Vectors x and y are of unequal length";
-  for (unsigned int i = 0; i < vect1.size(); ++i){
-    EXPECT_EQ(cmp[i],vect1[i]);
-  } 
-}
-
-TEST(FindPrimeTest, HandlesNegativeNumberRecursive) {
-  Solution solution;
-
-  int num=-1;
-  std::vector<int> vect1{-1};
-  std::vector<int> cmp;
-  for (auto n:solution.FindPrimeRecursive(num)){
-    cmp.push_back (n);
-  }
-  ASSERT_EQ(cmp.size(), vect1.size()) << "Vectors x and y are of unequal length";
-  for (unsigned int i = 0; i < vect1.size(); ++i){
-    EXPECT_EQ(cmp[i],vect1[i]);
-  } 
-}
-
-
-TEST(FindPrimeTest, HandlesZeroSeive) {
-  Solution solution;
-
-  int num=0;
-  std::vector<int> vect1{-1};
-  std::vector<int> cmp;
-  for (auto n:solution.Prime_SieveOfEratosthenes(num)){
-    cmp.push_back (n);
-  }
-  ASSERT_EQ(cmp.size(), vect1.size()) << "Vectors x and y are of unequal length";
-  for (unsigned int i = 0; i < vect1.size(); ++i){
-    EXPECT_EQ(cmp[i],vect1[i]);
-  } 
-}
-
-TEST(FindPrimeTest, HandlesZerorRecursive) {
-  Solution solution;
-
-  int num=0;
-  std::vector<int> vect1{-1};
-  std::vector<int> cmp;
-  for (auto n:solution.FindPrimeRecursive(num)){
-    cmp.push_back (n);
-  }
-  ASSERT_EQ(cmp.size(), vect1.size()) << "Vectors x and y are of unequal length";
-  for (unsigned int i = 0; i < vect1.size(); ++i){
-    EXPECT_EQ(cmp[i],vect1[i]);
-  } 
+TEST(Q4_Student, HandlesDeepCopy) {
+  int n=2;
+  int* g=&n;
+  Student_deep s(*g);
+  Student_deep d=s;
+  Student_deep e=d;
+  *s.id=5;
+  EXPECT_EQ (*s.id,*s.id);
+  EXPECT_EQ (*d.id,*d.id);
+  EXPECT_EQ (*e.id,*e.id);
+  *d.id=5;
+  EXPECT_EQ (*s.id,*s.id);
+  EXPECT_EQ (*d.id,*d.id);
+  EXPECT_EQ (*e.id,*e.id);
+  *e.id=5;
+  EXPECT_EQ (*s.id,*s.id);
+  EXPECT_EQ (*d.id,*d.id);
+  EXPECT_EQ (*e.id,*e.id);
 }

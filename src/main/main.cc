@@ -2,31 +2,29 @@
 #include <iostream>
 #include<vector>
 
-int main() {
-  Solution solution;
-  int num=5;
+int main() 
+{
+    int g=0;
+    Student_shallow a(g);
+    Student_shallow f=a;
+    Student_shallow s=a;
+   
+    std::cout<<"SHALLOW COPY :"<<std::endl;
+    std::cout<<*s.id<<" "<<*a.id<<" "<<*f.id<<std::endl;
+    *a.id=5;
+    std::cout<<*s.id<<" "<<*a.id<<" "<<*f.id<<std::endl;
 
-  std::cout << "Recursive Prime result for "<<num<< std::endl;
-  for (auto n:solution.FindPrimeRecursive(num)){
-    std::cout<<n<<std::endl;
-  }
 
-  std::cout << "Seive Prime result for "<<num<< std::endl;
-  for (auto n:solution.Prime_SieveOfEratosthenes(num)){
-    std::cout<<n<<std::endl;
-  }
-
-  num=-1;
-
-  std::cout << "Recursive Prime result for "<<num<< std::endl;
-  for (auto n:solution.FindPrimeRecursive(num)){
-    std::cout<<n<<std::endl;
-  }
-
-  std::cout << "Seive Prime result for "<<num<< std::endl;
-  for (auto n:solution.Prime_SieveOfEratosthenes(num)){
-    std::cout<<n<<std::endl;
-  }
+    int j=0;
+    Student_deep d(j);
+    Student_deep e=d;
+    Student_deep c;
+    c=d;
+   
+    std::cout<<"DEEP COPY :"<<std::endl;
+    std::cout<<*e.id<<" "<<*d.id<<" "<<*c.id<<std::endl;
+    *d.id=3;
+    std::cout<<*e.id<<" "<<*d.id<<" "<<*c.id<<std::endl;
 
   return 0;
 }
